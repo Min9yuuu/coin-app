@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPrice } from './api';
+import { fetchPrice, fetchCoinHistory } from './api';
 import { useParams } from 'react-router-dom';
 
 interface PriceData {
@@ -44,7 +44,7 @@ const Loader = styled.span`
 
 const Overview = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 10px;
@@ -53,9 +53,8 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 25px;
   span:first-child {
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 5px;
@@ -69,6 +68,7 @@ function Price() {
     queryFn: () => fetchPrice(coinId!),
     refetchInterval: 300000,
   });
+
   return (
     <>
       {priceLoading ? (
@@ -78,8 +78,12 @@ function Price() {
       ) : (
         <Overview>
           <OverviewItem>
-            <span>{coinId}</span>
+            <span>Price:</span>
             <span>${priceD?.quotes.USD.price.toFixed(2)}</span>
+          </OverviewItem>
+          <OverviewItem>
+            <span>precent from price ath:</span>
+            <span>{priceD?.quotes.USD.percent_from_price_ath}%</span>
           </OverviewItem>
         </Overview>
       )}

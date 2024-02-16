@@ -83,7 +83,7 @@ function Price() {
           </OverviewItem>
           <OverviewItem>
             <span>precent from price ath:</span>
-            <span>{priceD?.quotes.USD.percent_from_price_ath}%</span>
+            <span>{priceD?.quotes.USD.percent_from_price_ath}% </span>
           </OverviewItem>
         </Overview>
       )}
